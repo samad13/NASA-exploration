@@ -1,16 +1,25 @@
 const http = require('http');
 
+require('dotenv').config();
+
 const app = require('./app');
+const {mongoConnect}= require('./services/mongo');
 
 const { loadPlanetsData } = require('./models/planets.model')
+const { loadLaunchData } = require('./models/launches.model')
 
 const PORT = process.env.PORT || 8000;
 
+
+
 const server = http.createServer(app);
-//"watch":"npm-run-all --parallel server client"
-//C:\Program Files\nodejs\node_modules\npm\bin
+
+
+
 async function startServer () {
+    await mongoConnect()
     await loadPlanetsData();
+    await loadLaunchData();
 
     server.listen(PORT, ()=>{
         console.log(`listening on port ${PORT}....`)
