@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-launches.test.js
 # production
 /build
 
